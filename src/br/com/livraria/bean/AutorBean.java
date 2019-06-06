@@ -45,6 +45,7 @@ public class AutorBean {
 	
 	public void remover(Autor autor) {
 		new DAO<Autor>(Autor.class).remove(autor);
+		this.autor = new Autor(); //caso carregue o usuário antes de excluir, irá limpar os campos
 	}
 	
 	public void carregar(Autor autor) {

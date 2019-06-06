@@ -15,7 +15,7 @@
 
 <ui:define name="titulo"><p:outputLabel>Novo Autor</p:outputLabel></ui:define>
 <ui:define name="conteudo">
-	<h:form >	
+	<h:form id="formAutor">	
 		<p:fieldset legend="Dados do Autor">
 			<p:panelGrid columns="3">
 			
@@ -35,6 +35,7 @@
 				<p:commandButton value="Gravar" action="#{autorBean.gravar}" process="@form" update="@form :formTabelaAutores">
 					<f:ajax execute="@form" render="@form :formTabelaAutores:tabelaAutores"/>
 				</p:commandButton>
+				
 			</p:panelGrid>
 			<p:commandLink value="Lista de livros" action="#{livroBean.formLivro}" immediate="true"/> 
 		</p:fieldset>
@@ -50,12 +51,14 @@
 				<h:outputText value="&#160;"/>
 			</p:column>
 			<p:column headerText="Alterar" style="width:80px; text-align:center;">
-				<h:commandLink action="#{autorBean.carregar(autor)}" value="alterar" />
+				<p:commandButton icon="ui-icon-pencil" style="text-align:center;"
+					action="#{autorBean.carregar(autor)}" process="@form" update="@form :formAutor"/>
 				<h:outputText value="&#160;"/>
 				<h:outputText value="&#160;"/>
 			</p:column>
-			<p:column headerText="Remover" style="width:80px;text-align:center;">
-				<p:commandLink action="#{autorBean.remover(autor)}" value="remove" process="@form" update="@form :formTabelaAutores"/>
+			<p:column headerText="Remover" style="width:80px;text-align:center;" >
+				<p:commandButton icon="ui-icon-trash" style="text-align:center;"
+					action="#{autorBean.remover(autor)}"  process="@form" update="@form :formTabelaAutores :formAutor"/>
 			</p:column>
 		</p:dataTable>
 	</h:form>
