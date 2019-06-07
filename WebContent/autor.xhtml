@@ -13,7 +13,7 @@
 	<f:viewAction action="#{autorBean.carregarAutorPorId}" if="#{param.autorId != null}"/>
 </f:metadata>
 
-<ui:define name="titulo"><p:outputLabel>Novo Autor</p:outputLabel></ui:define>
+<ui:define name="titulo"><h:outputLabel>Novo Autor</h:outputLabel></ui:define>
 <ui:define name="conteudo">
 	<h:form id="formAutor">	
 		<p:fieldset legend="Dados do Autor">
@@ -51,13 +51,13 @@
 				<h:outputText value="&#160;"/>
 			</p:column>
 			<p:column headerText="Alterar" style="width:80px; text-align:center;">
-				<p:commandButton icon="ui-icon-pencil" style="text-align:center;"
+				<p:commandButton icon="fa fa-fw fa-edit" style="text-align:center;"
 					action="#{autorBean.carregar(autor)}" process="@form" update="@form :formAutor"/>
 				<h:outputText value="&#160;"/>
 				<h:outputText value="&#160;"/>
 			</p:column>
 			<p:column headerText="Remover" style="width:80px;text-align:center;" >
-				<p:commandButton icon="ui-icon-trash" style="text-align:center;"
+				<p:commandButton icon="fa fa-fw fa-remove" 
 					action="#{autorBean.remover(autor)}"  process="@form" update="@form :formTabelaAutores :formAutor"/>
 			</p:column>
 		</p:dataTable>

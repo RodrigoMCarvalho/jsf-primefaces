@@ -2,8 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
 <h:head>
+<style>
+    .ui-widget, .ui-widget .ui-widget {
+		font-size: 15px !important;
+	}
+</style>
+<h:outputScript library="js" name="calendar.js" />
 </h:head>
 <h:body>
 	
@@ -11,8 +18,8 @@
 		<h:graphicImage library="img" name="logo.png"/>
 		
 		<h:form rendered="#{usuarioLogado != null}">
-			<h:outputText value="Bem vindo, #{sessionScope['usuarioLogado'].nome}"/><br />
-			<h:commandLink action="#{loginBean.deslogar}" value="Logout" />
+			<p:outputLabel value="Bem vindo, #{sessionScope['usuarioLogado'].nome}"/><br />
+			<p:commandLink action="#{loginBean.deslogar}" value="Logout" />
 		</h:form>
 		<h1><ui:insert name="titulo"></ui:insert></h1>
 	</div>
