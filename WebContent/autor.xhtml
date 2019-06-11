@@ -32,9 +32,8 @@
 				</p:inputText>
 				<p:message for="email" id="messageEmail"/>
 				
-				<p:commandButton value="Gravar" action="#{autorBean.gravar}" process="@form" update="@form :formTabelaAutores">
-					<f:ajax execute="@form" render="@form :formTabelaAutores:tabelaAutores"/>
-				</p:commandButton>
+				<p:commandButton value="Gravar" action="#{autorBean.gravar}" 
+					process="@form" update="@form :formTabelaAutores" />
 				
 			</p:panelGrid>
 			<p:commandLink value="Lista de livros" action="#{livroBean.formLivro}" immediate="true"/> 

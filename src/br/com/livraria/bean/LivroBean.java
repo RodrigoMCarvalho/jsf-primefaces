@@ -19,6 +19,7 @@ public class LivroBean {
 
 	private Livro livro = new Livro();
 	private Integer autorId;
+	private List livros;
 	
 	public void setAutorId(Integer autorId) {
 		this.autorId = autorId;
@@ -41,7 +42,10 @@ public class LivroBean {
 	}
 	
 	public List<Livro> getLivros() {
-		return new DAO<Livro>(Livro.class).listaTodos();
+		if(this.livros == null) { //para quando for filtrar os dados na tabela, realizar apenas um consulta no BD
+			this.livros = new DAO<Livro>(Livro.class).listaTodos();
+		}
+		return livros;
 	}
 	
 	public void gravarAutor() {
