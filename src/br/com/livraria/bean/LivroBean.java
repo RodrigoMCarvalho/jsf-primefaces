@@ -19,7 +19,7 @@ public class LivroBean {
 
 	private Livro livro = new Livro();
 	private Integer autorId;
-	private List livros;
+	private List<Livro> livros;
 	
 	public void setAutorId(Integer autorId) {
 		this.autorId = autorId;
@@ -28,7 +28,11 @@ public class LivroBean {
 	public Integer getAutorId() {
 		return autorId;
 	}
-
+	
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
+	
 	public Livro getLivro() {
 		return livro;
 	}
@@ -56,21 +60,26 @@ public class LivroBean {
 
 	public void gravar() {
 		System.out.println("Gravando livro " + this.livro.getTitulo());
+		
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 
 		if (livro.getAutores().isEmpty()) {
 			//throw new RuntimeException("Livro deve ter pelo menos um Autor.");
 			FacesContext.getCurrentInstance().addMessage("autor", new FacesMessage("Livro deve ter pelo menos um Autor."));
 		}
 		if (this.livro.getId() == null) {
-			new DAO<Livro>(Livro.class).adiciona(this.livro);
+			dao.adiciona(this.livro);
+			this.livros = dao.listaTodos();  //após persister no banco, atualiza a tabela de livros
 		} else {
-			new DAO<Livro>(Livro.class).atualiza(this.livro);
+			dao.atualiza(this.livro);
 		}
 		livro = new Livro();
 	}
 	
 	public void remover(Livro livro) {
-		new DAO<Livro>(Livro.class).remove(livro);
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		dao.remove(livro);
+		this.livros = dao.listaTodos(); //após remover no banco, atualiza a tabela de livros
 	}
 	
 	public void removerAutorDoLivro(Autor autor) {

@@ -16,9 +16,9 @@
 			<p:panelGrid columns="2">
 
 				<p:outputLabel value="Titulo:" for="titulo" />
-				<h:inputText id="titulo" value="#{livroBean.livro.titulo}" required="true" requiredMessage="Título obrigatório" >
+				<p:inputText id="titulo" value="#{livroBean.livro.titulo}" required="true" requiredMessage="Título obrigatório" >
 					<f:ajax event="blur" render="messages"/> 
-				</h:inputText>
+				</p:inputText>
 
 				<p:outputLabel value="ISBN:" for="isbn" />
 				<p:inputMask mask="999-9-99-999999-9" id="isbn" value="#{livroBean.livro.isbn}" required="true" requiredMessage="ISBN obrigatório"
@@ -69,7 +69,10 @@
 		<br />
 		
 		<h:form id="formTabelaLivros">
-		<p:dataTable id="tabelaLivros" value="#{livroBean.livros}" var="livro" style="width:1000px;" paginator="true" rows="6">
+		<p:dataTable id="tabelaLivros" value="#{livroBean.livros}" 
+		var="livro" style="width:1000px;" paginator="true" rows="6" widgetVar="tabelaLivros"
+		emptyMessage="Sem livros cadastrados">
+        	
 			<p:column headerText="Titulo" style="width:300px;" sortBy="#{livro.titulo}">
 				<h:outputText value="#{livro.titulo}" />
 				<h:outputText value="&#160;"/>
@@ -97,13 +100,13 @@
 			
 			<p:column headerText="Alterar" style="width:80px;text-align:center;">
 				<p:commandButton icon="fa fa-fw fa-edit" action="#{livroBean.alterar(livro)}" 
-					process="@form" update="@form :formLivro"/>
+					process="@form" update="@form :formTabelaLivros"/>
 				<h:outputText value="&#160;"/>
 				<h:outputText value="&#160;"/>
 			</p:column>
 			<p:column headerText="Remover" style="width:80px;text-align:center;" >
 				<p:commandButton icon="fa fa-fw fa-remove" action="#{livroBean.remover(livro)}" 
-					process="@form" update="@form :formLivro"/>
+					process="@form" update="@form :formTabelaLivros"/>
 			</p:column>
 		</p:dataTable>
 	</h:form>
