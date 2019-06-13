@@ -8,10 +8,10 @@
 
 <ui:composition template="_template.xhtml">
 	<ui:define name="titulo">Novo Livro</ui:define>
-	<ui:define name="conteudo">
 	
+	<ui:define name="conteudo">
 	<h:form id="formLivro">	
-		<h:messages id="messages"/>
+		<p:messages id="messages"/>
 		<p:fieldset legend="Dados do Livro">
 			<p:panelGrid columns="2">
 
@@ -48,8 +48,6 @@
 					<f:ajax execute="autor" render="tabelaAutores"/>
 				</p:commandButton>
 			</h:panelGrid>
-			<p:commandLink value="Cadastrar novo autor" action="#{livroBean.formAutor}" immediate="true"/> 
-			<br/>
 				
 			<h:dataTable value="#{livroBean.autoresDoLivro}" var="autor" id="tabelaAutores">
 				<h:column>
@@ -69,7 +67,7 @@
 		<br />
 		
 		<h:form id="formTabelaLivros">
-		<p:dataTable id="tabelaLivros" value="#{livroBean.livros}" 
+		<p:dataTable id="tabelaLivros" value="#{livroBean.livros}" lazy="true"
 		var="livro" style="width:1000px;" paginator="true" rows="6" widgetVar="tabelaLivros"
 		emptyMessage="Sem livros cadastrados">
         	

@@ -21,8 +21,19 @@
 		<h:graphicImage library="img" name="logo.png"/>
 		
 		<h:form rendered="#{usuarioLogado != null}">
+		 
+		    <p:menuButton value="Menu">
+		        <p:menuitem value="Autores" action="#{loginBean.formAutor}" icon="fa fa-fw fa-edit"/>
+		        <p:menuitem value="Livros" action="#{loginBean.formLivro}" icon="fa fa-fw fa-edit"/>
+		        <p:menuitem value="Carousel" action="#{loginBean.formCarousel}" icon="fa fa-fw fa-edit"/>
+		        <p:menuitem value="Ring" action="#{loginBean.formRing}" icon="fa fa-fw fa-edit"/>
+		        <p:separator />
+		        <p:menuitem value="Logout" action="#{loginBean.deslogar}" icon="fa fa-fw fa-sign-out"/>
+		    </p:menuButton>
+		</h:form>
+		<br />
+		<h:form rendered="#{usuarioLogado != null}">
 			<p:outputLabel value="Bem vindo, #{sessionScope['usuarioLogado'].nome}"/><br />
-			<p:commandLink action="#{loginBean.deslogar}" value="Logout" />
 		</h:form>
 		<h1><ui:insert name="titulo"></ui:insert></h1>
 	</div>

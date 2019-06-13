@@ -55,21 +55,23 @@ public class LivroBean {
 	public void gravarAutor() {
 		Autor autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
 		livro.adicionaAutor(autor);
-		System.out.println("Livro escrito por " + autor.getNome());
 	}
 
 	public void gravar() {
-		System.out.println("Gravando livro " + this.livro.getTitulo());
+		//System.out.println("Gravando livro " + this.livro.getTitulo());
 		
+		FacesContext context = FacesContext.getCurrentInstance();
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 
 		if (livro.getAutores().isEmpty()) {
 			//throw new RuntimeException("Livro deve ter pelo menos um Autor.");
-			FacesContext.getCurrentInstance().addMessage("autor", new FacesMessage("Livro deve ter pelo menos um Autor."));
+			context.addMessage(null, new FacesMessage("Livro deve ter pelo menos um Autor."));
+			return;
 		}
 		if (this.livro.getId() == null) {
 			dao.adiciona(this.livro);
 			this.livros = dao.listaTodos();  //após persister no banco, atualiza a tabela de livros
+			context.addMessage(null, new FacesMessage("Livro gravado com sucesso!"));
 		} else {
 			dao.atualiza(this.livro);
 		}
@@ -97,16 +99,4 @@ public class LivroBean {
 		}
 	}
 	
-	public String formAutor() {
-		System.out.println("Chamando a página autor.xhtml");
-		return "autor?faces-redirect=true";
-	}
-	
-	public String formLivro() {
-		System.out.println("Chamando a página livro.xhtml");
-		return "livro?faces-redirect=true";
-	}
-	
-	
-
 }

@@ -40,7 +40,21 @@ public class LoginBean {
 		return "login?faces-redirect=true";
 	}
 	
+	public String formAutor() {
+		return "autor?faces-redirect=true";
+	}
 	
+	public String formLivro() {
+		return "livro?faces-redirect=true";
+	}
+	
+	public String formCarousel() {
+		return "carousel?faces-redirect=true";
+	}
+	
+	public String formRing() {
+		return "ring?faces-redirect=true";
+	}
 	
 	
 	
