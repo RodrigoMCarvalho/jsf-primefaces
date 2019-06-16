@@ -67,7 +67,7 @@
 		<br />
 		
 		<h:form id="formTabelaLivros">
-		<p:dataTable id="tabelaLivros" value="#{livroBean.livros}" lazy="true"
+		<p:dataTable id="tabelaLivros" value="#{livroBean.livros}" lazy="true" 
 		var="livro" style="width:1000px;" paginator="true" rows="6" widgetVar="tabelaLivros"
 		emptyMessage="Sem livros cadastrados">
         	
@@ -98,13 +98,13 @@
 			
 			<p:column headerText="Alterar" style="width:80px;text-align:center;">
 				<p:commandButton icon="fa fa-fw fa-edit" action="#{livroBean.alterar(livro)}" 
-					process="@form" update="@form :formTabelaLivros"/>
+					process="@form" update="@form :formLivro :formTabelaLivros"/>
 				<h:outputText value="&#160;"/>
 				<h:outputText value="&#160;"/>
 			</p:column>
 			<p:column headerText="Remover" style="width:80px;text-align:center;" >
 				<p:commandButton icon="fa fa-fw fa-remove" action="#{livroBean.remover(livro)}" 
-					process="@form" update="@form :formTabelaLivros"/>
+					process="@form" update="@form :formLivro :formTabelaLivros:tabelaLivros"/>
 			</p:column>
 		</p:dataTable>
 	</h:form>

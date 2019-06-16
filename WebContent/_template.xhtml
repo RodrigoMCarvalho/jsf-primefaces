@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
 <h:head>
@@ -18,13 +19,24 @@
 <h:body>
 	
 	<div id="cabecalho">
-		<h:graphicImage library="img" name="logo.png"/>
 		
-		<h:form rendered="#{usuarioLogado != null}">
-		 
+		<h:panelGrid columns="2">
+			<h:graphicImage library="img" name="logo.png"/>
+			
+			<h:form rendered="#{usuarioLogado != null}" style="position:absolute; right: 10px">
+				<p:themeSwitcher id="basic" style="width:165px" value="#{temaBean.temas}">
+		            <f:selectItem itemLabel="Escolha um tema" itemValue="" />
+		            <f:selectItems value="#{temaBean.temas}" var="tema" itemLabel="#{tema}" itemValue="#{tema}"/>
+		            <f:ajax />
+		        </p:themeSwitcher>
+			</h:form>
+		</h:panelGrid>
+		
+		<h:form rendered="#{usuarioLogado != null}">	
 		    <p:menuButton value="Menu">
 		        <p:menuitem value="Autores" action="#{loginBean.formAutor}" icon="fa fa-fw fa-edit"/>
 		        <p:menuitem value="Livros" action="#{loginBean.formLivro}" icon="fa fa-fw fa-edit"/>
+		        <p:menuitem value="Vendas" action="#{loginBean.formVendas}" icon="fa fa-fw fa-edit"/>
 		        <p:menuitem value="Carousel" action="#{loginBean.formCarousel}" icon="fa fa-fw fa-edit"/>
 		        <p:menuitem value="Ring" action="#{loginBean.formRing}" icon="fa fa-fw fa-edit"/>
 		        <p:separator />

@@ -48,6 +48,10 @@ public class LoginBean {
 		return "livro?faces-redirect=true";
 	}
 	
+	public String formVendas() {
+		return "vendas?faces-redirect=true";
+	}
+	
 	public String formCarousel() {
 		return "carousel?faces-redirect=true";
 	}

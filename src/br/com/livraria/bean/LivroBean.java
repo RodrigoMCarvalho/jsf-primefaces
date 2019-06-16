@@ -81,6 +81,7 @@ public class LivroBean {
 	public void remover(Livro livro) {
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 		dao.remove(livro);
+		this.livro = new Livro();
 		this.livros = dao.listaTodos(); //após remover no banco, atualiza a tabela de livros
 	}
 	
