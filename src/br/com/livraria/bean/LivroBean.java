@@ -1,22 +1,25 @@
 package br.com.livraria.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 import br.com.livraria.dao.DAO;
 import br.com.livraria.modelo.Autor;
 import br.com.livraria.modelo.Livro;
 
-@ManagedBean
+@Named
 @ViewScoped //a cada request é gerado um novo livroBean, viewScoped evita isso
-public class LivroBean {
+public class LivroBean implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private Livro livro = new Livro();
 	private Integer autorId;
 	private List<Livro> livros;
