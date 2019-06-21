@@ -44,9 +44,8 @@
 						var="autor" itemLabel="#{autor.nome}" itemValue="#{autor.id}"/>
 				</p:selectOneMenu>
 				
-				<p:commandButton value="Gravar Autor" action="#{livroBean.gravarAutor()}">
-					<f:ajax execute="autor" render="tabelaAutores"/>
-				</p:commandButton>
+				<p:commandButton value="Gravar Autor" action="#{livroBean.gravarAutor}"
+					process="@form" update="@form :formLivro :formTabelaLivros"/>
 			</h:panelGrid>
 				
 			<h:dataTable value="#{livroBean.autoresDoLivro}" var="autor" id="tabelaAutores">

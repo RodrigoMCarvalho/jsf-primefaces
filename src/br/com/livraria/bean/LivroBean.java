@@ -8,9 +8,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.livraria.dao.DAO;
+import br.com.livraria.dao.AutorDAO;
+import br.com.livraria.dao.LivroDAO;
 import br.com.livraria.modelo.Autor;
 import br.com.livraria.modelo.Livro;
 
@@ -23,6 +25,12 @@ public class LivroBean implements Serializable{
 	private Livro livro = new Livro();
 	private Integer autorId;
 	private List<Livro> livros;
+	
+	@Inject
+	private AutorDAO autorDao;
+	
+	@Inject
+	private LivroDAO livroDao;
 	
 	public void setAutorId(Integer autorId) {
 		this.autorId = autorId;
@@ -45,26 +53,27 @@ public class LivroBean implements Serializable{
 	}
 	
 	public List<Autor> getAutores() {
-		return new DAO<Autor>(Autor.class).listaTodos();
+		return autorDao.listaTodos();
 	}
 	
 	public List<Livro> getLivros() {
 		if(this.livros == null) { //para quando for filtrar os dados na tabela, realizar apenas um consulta no BD
-			this.livros = new DAO<Livro>(Livro.class).listaTodos();
+			this.livros = livroDao.listaTodos();
 		}
 		return livros;
 	}
 	
 	public void gravarAutor() {
-		Autor autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
+		FacesContext context = FacesContext.getCurrentInstance();
+		Autor autor = autorDao.buscaPorId(autorId);
 		livro.adicionaAutor(autor);
+		context.addMessage(null, new FacesMessage("Autor associado com sucesso."));
 	}
 
 	public void gravar() {
 		//System.out.println("Gravando livro " + this.livro.getTitulo());
 		
 		FacesContext context = FacesContext.getCurrentInstance();
-		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 
 		if (livro.getAutores().isEmpty()) {
 			//throw new RuntimeException("Livro deve ter pelo menos um Autor.");
@@ -72,20 +81,19 @@ public class LivroBean implements Serializable{
 			return;
 		}
 		if (this.livro.getId() == null) {
-			dao.adiciona(this.livro);
-			this.livros = dao.listaTodos();  //após persister no banco, atualiza a tabela de livros
+			livroDao.adiciona(this.livro);
+			this.livros = livroDao.listaTodos();  //após persister no banco, atualiza a tabela de livros
 			context.addMessage(null, new FacesMessage("Livro gravado com sucesso!"));
 		} else {
-			dao.atualiza(this.livro);
+			livroDao.atualiza(this.livro);
 		}
 		livro = new Livro();
 	}
 	
 	public void remover(Livro livro) {
-		DAO<Livro> dao = new DAO<Livro>(Livro.class);
-		dao.remove(livro);
+		livroDao.remove(livro);
 		this.livro = new Livro();
-		this.livros = dao.listaTodos(); //após remover no banco, atualiza a tabela de livros
+		this.livros = livroDao.listaTodos(); //após remover no banco, atualiza a tabela de livros
 	}
 	
 	public void removerAutorDoLivro(Autor autor) {

@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.livraria.dao.DAO;
+import br.com.livraria.dao.AutorDAO;
 import br.com.livraria.modelo.Autor;
 
 @Named
@@ -17,6 +18,10 @@ public class AutorBean implements Serializable {
 
 	private Autor autor = new Autor();
 	
+	@Inject
+	private AutorDAO dao; //CDI faz new AutorDAO() e injeta
+
+		
 	private Integer autorId;
 
 	public Autor getAutor() {
@@ -24,7 +29,7 @@ public class AutorBean implements Serializable {
 	}
 	
 	public List<Autor> getAutores() {
-		return new DAO<Autor>(Autor.class).listaTodos();
+		return dao.listaTodos();
 	} 
 
 	public Integer getAutorId() {
@@ -39,15 +44,15 @@ public class AutorBean implements Serializable {
 		System.out.println("Gravando autor " + this.autor.getNome() + " ID: " + this.autor.getId());
 		
 		if(autor.getId() == null) {
-			new DAO<Autor>(Autor.class).adiciona(this.autor);
+			this.dao.adiciona(this.autor);
 		} else {
-			new DAO<Autor>(Autor.class).atualiza(this.autor);
+			this.dao.atualiza(this.autor);
 		}
 		autor = new Autor(); //para limpar após persistir um novo autor
 	}
 	
 	public void remover(Autor autor) {
-		new DAO<Autor>(Autor.class).remove(autor);
+		this.dao.remove(autor);
 		this.autor = new Autor(); //caso carregue o usuário antes de excluir, irá limpar os campos
 	}
 	
@@ -57,7 +62,7 @@ public class AutorBean implements Serializable {
 	}
 	
 	public void carregarAutorPorId () {
-		this.autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
+		this.autor = this.dao.buscaPorId(autorId);
 	}
 	
 	

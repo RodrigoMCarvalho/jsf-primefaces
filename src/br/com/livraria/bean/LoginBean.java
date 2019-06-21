@@ -3,9 +3,9 @@ package br.com.livraria.bean;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
-
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.livraria.dao.UsuarioDAO;
@@ -19,6 +19,9 @@ public class LoginBean implements Serializable{
 	
 	private Usuario usuario = new Usuario();
 	
+	@Inject 
+	private UsuarioDAO dao;
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -27,7 +30,7 @@ public class LoginBean implements Serializable{
 		System.out.println("Efetando o login do usuário " + this.usuario.getEmail());
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		Usuario UsuarioExiste = new UsuarioDAO().existe(usuario);
+		Usuario UsuarioExiste = dao.existe(usuario);
 		if (UsuarioExiste != null) {
 			
 			context.getExternalContext().getSessionMap().put("usuarioLogado", UsuarioExiste);

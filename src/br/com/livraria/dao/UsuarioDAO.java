@@ -1,12 +1,16 @@
 package br.com.livraria.dao;
 
+import java.io.Serializable;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.com.livraria.modelo.Usuario;
 
-public class UsuarioDAO {
+public class UsuarioDAO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	public Usuario existe(Usuario usuario) {
 		

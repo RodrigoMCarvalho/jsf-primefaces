@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Random;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
-import br.com.livraria.dao.DAO;
+import br.com.livraria.dao.LivroDAO;
 import br.com.livraria.modelo.Livro;
 import br.com.livraria.modelo.Vendas;
 
@@ -20,10 +21,13 @@ import br.com.livraria.modelo.Vendas;
 public class VendasBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private LivroDAO dao;
 
 	public List<Vendas> getVendas(long seed) {
 		List<Vendas> vendas = new ArrayList<>();
-		List<Livro> livros = new DAO<Livro>(Livro.class).listaTodos();
+		List<Livro> livros = dao.listaTodos();
 		
 		Random random = new Random(seed);
 		
