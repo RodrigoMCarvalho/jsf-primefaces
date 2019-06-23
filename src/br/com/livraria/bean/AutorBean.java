@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import br.com.livraria.dao.AutorDAO;
 import br.com.livraria.modelo.Autor;
+import br.com.livraria.tx.Transacional;
 
 @Named
 @ViewScoped
@@ -39,7 +40,8 @@ public class AutorBean implements Serializable {
 	public void setAutorId(Integer autorId) {
 		this.autorId = autorId;
 	}
-
+	
+	@Transacional
 	public void gravar() {
 		System.out.println("Gravando autor " + this.autor.getNome() + " ID: " + this.autor.getId());
 		
@@ -51,6 +53,7 @@ public class AutorBean implements Serializable {
 		autor = new Autor(); //para limpar após persistir um novo autor
 	}
 	
+	@Transacional
 	public void remover(Autor autor) {
 		this.dao.remove(autor);
 		this.autor = new Autor(); //caso carregue o usuário antes de excluir, irá limpar os campos

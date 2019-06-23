@@ -15,6 +15,7 @@ import br.com.livraria.dao.AutorDAO;
 import br.com.livraria.dao.LivroDAO;
 import br.com.livraria.modelo.Autor;
 import br.com.livraria.modelo.Livro;
+import br.com.livraria.tx.Transacional;
 
 @Named
 @ViewScoped //a cada request é gerado um novo livroBean, viewScoped evita isso
@@ -63,13 +64,15 @@ public class LivroBean implements Serializable{
 		return livros;
 	}
 	
+	@Transacional
 	public void gravarAutor() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Autor autor = autorDao.buscaPorId(autorId);
 		livro.adicionaAutor(autor);
 		context.addMessage(null, new FacesMessage("Autor associado com sucesso."));
 	}
-
+	
+	@Transacional
 	public void gravar() {
 		//System.out.println("Gravando livro " + this.livro.getTitulo());
 		
@@ -90,16 +93,19 @@ public class LivroBean implements Serializable{
 		livro = new Livro();
 	}
 	
+	@Transacional
 	public void remover(Livro livro) {
 		livroDao.remove(livro);
 		this.livro = new Livro();
 		this.livros = livroDao.listaTodos(); //após remover no banco, atualiza a tabela de livros
 	}
 	
+	@Transacional
 	public void removerAutorDoLivro(Autor autor) {
 		this.livro.removerAutor(autor);
 	}
 	
+	@Transacional
 	public void alterar(Livro livro) {
 		this.livro = livro; //livro atributo recebe o parâmetro livro
 	}
