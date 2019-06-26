@@ -13,7 +13,7 @@ public class JPAUtil{
 			.createEntityManagerFactory("livraria");
 
 	@Produces     //como produzir
-	@RequestScoped  //uma vez por requesição
+	@RequestScoped  //uma vez por requisição
 	public EntityManager getEntityManager() {
 		return emf.createEntityManager(	);
 	}
