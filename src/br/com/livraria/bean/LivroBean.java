@@ -107,8 +107,9 @@ public class LivroBean implements Serializable{
 	
 	@Transacional
 	public void alterar(Livro livro) {
-		this.livro = livro; //livro atributo recebe o parâmetro livro
-	}
+		//this.livro = livro; //livro atributo recebe o parâmetro livro
+		this.livro = livroDao.buscaPorId(livro.getId())
+;	}
 	
 	public void comecaComDigitoUm(FacesContext fc, UIComponent component, Object obj)throws ValidatorException {
 		String valor = obj.toString();
